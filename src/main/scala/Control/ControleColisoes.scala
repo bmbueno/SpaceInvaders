@@ -9,8 +9,8 @@ class ControleColisoes {
     var colisao: Boolean = false;
     if(nave.getCoordenadaX() == inimigo.getCoordenadaX() && nave.getCoordenadaY() == nave.getCoordenadaY()){
       colisao = true;
-      nave.finalize();
-      inimigo.finalize();
+      //nave.finalize();
+      //inimigo.finalize();
     }
     return colisao;
   }
@@ -29,8 +29,8 @@ class ControleColisoes {
   def testaColisao(inimigo: Inimigo, disparoNave: DisparoNave): Boolean ={
 
     if(inimigo.getCoordenadaY() == disparoNave.getCoordenadaY() && inimigo.getCoordenadaX() == disparoNave.getCoordenadaX()){
-      inimigo.finalize();
-      disparoNave.finalize();
+      //inimigo.finalize();
+      //disparoNave.finalize();
     }
     return false;
   }
