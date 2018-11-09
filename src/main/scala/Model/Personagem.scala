@@ -1,22 +1,24 @@
 package Model
 import View.{Interface}
-import javax.swing.JLabel;
+import javax.swing.{JLabel,ImageIcon}
 
 class Personagem(simboloPersonagem: String, coordX: Int, coordY: Int) {
   private var simbolo: String = simboloPersonagem;
-  private var coordenadaX: Int = coordX;
-  private var coordenadaY: Int = coordY;
+  protected var coordenadaX: Int = coordX;
+  protected var coordenadaY: Int = coordY;
   private var label: JLabel = new JLabel();
   private val tamanho: Int = 10;
 
   def iniciaLabel():Unit = {
     this.label.setText(this.simbolo);
     this.label.setBounds(this.coordenadaX, this.coordenadaY, this.tamanho, this.tamanho);
+
   }
 
   def printPersonagem(interface : Interface): Unit = {
     this.iniciaLabel();
     interface.add(this.label);
+
   }
 
   def getCoordenadaX():Int = {

@@ -1,4 +1,4 @@
-import Model.Nave
+import Model._
 import View.{Interface}
 import java.time._
 import java.awt.event._
@@ -10,14 +10,13 @@ object SpaceInvaders {
     val nave2: Nave = new Nave("3", 301, 300);
 
     interface.iniciar()
-    for (i <- 0 to 10)
-    {
-    nave.printPersonagem(interface)
-    Thread.sleep(100)
-    nave.moveParaFrente()
-    nave.printPersonagem(interface);
+
+    while(true){
+      nave.printPersonagem(interface)
+      Thread.sleep(100)
+      nave.printPersonagem(interface);
+      nave.moveuNave(interface.tecla,600,600)
+      interface.tecla = 0
+    }
+  }
 }
-if(KeyEvent.VK_ENTER != 3){
-  println("foi")
-}
-}}
