@@ -1,6 +1,7 @@
 package Model
 import View.{Interface}
 import javax.swing.{JLabel,ImageIcon}
+import java.awt.event._
 
 class Personagem(simboloPersonagem: String, coordX: Int, coordY: Int) {
   private var simbolo: String = simboloPersonagem;
