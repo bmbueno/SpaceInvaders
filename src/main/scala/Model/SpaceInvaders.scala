@@ -12,6 +12,10 @@ object SpaceInvaders {
     while(true) {
     Thread.sleep(100)
     interface.printNave()
+    interface.printDisparo()
+    interface.printAliens()
+    interface.printDisparoAliens()
+    interface.printInfo()
 
 }
 
