@@ -10,9 +10,9 @@ object SpaceInvaders {
     interface.iniciar()
 
     while(true) {
-
     Thread.sleep(100)
     interface.printNave()
+
 }
 
 

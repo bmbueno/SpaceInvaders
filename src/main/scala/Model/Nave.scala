@@ -11,4 +11,6 @@ class Nave(coordX: Int, coordY: Int) extends Alien(coordX,coordY){
   def moveTras(): Unit = {
     this.y = this.y - 10
   }
+
+
 }
