@@ -6,7 +6,6 @@ import scala.util.Random
 
 class Controller(){
 
-  //private val Constantes.NUMERO_ALIENS_LINHA: Int = 11
   private var tecla: Int = 0
   private var velocidadeDefinida: Int = 0
   private var velocidade: Int = 0
@@ -21,6 +20,7 @@ class Controller(){
   private var iRandomico : Random = new Random
   private var jRandomico : Random = new Random
   private var vida: Int = 3
+  private var aliensMortos: Int = 0
 
 
   def getVelocidade = velocidade
@@ -56,13 +56,13 @@ class Controller(){
   def setDificuldade(dificuldade: String): Unit = {
     dificuldade match {
       case "Facil" => {
-        this.velocidadeDefinida = 100
+        this.velocidadeDefinida = Constantes.VELOCIDADE_ALIEN_FACIL
       }
       case "Medio" =>{
-        this.velocidadeDefinida = 50
+        this.velocidadeDefinida = Constantes.VELOCIDADE_ALIEN_MEDIO
       }
       case "Dificil" =>{
-        this.velocidadeDefinida = 20
+        this.velocidadeDefinida = Constantes.VELOCIDADE_ALIEN_DIFICIL
       }
     }
     this.velocidade = velocidadeDefinida
@@ -75,8 +75,8 @@ class Controller(){
   def Nave(): Unit = {
     this.tecla match {
         case 32 => {
+            if(!disparoNave.getAtivo)
             disparoNave.set(nave.getX,nave.getY,true)
-
         }
         case 37 => {
           if(this.nave.getX > 0)
@@ -116,20 +116,21 @@ class Controller(){
        if (this.velocidade < 0)
         this.velocidade = velocidadeDefinida + 1
       this.velocidade = this.velocidade - 1
-
-      println(velocidade + " " + velocidadeDefinida)
   }
 
   def disparoNav(): Unit = {
     if(this.disparoNave.getAtivo){
       this.disparoNave.moveFrente()
     }
+    if(this.disparoNave.getY < 0)
+      this.disparoNave.desativa()
 
       for(i <- 0 to Constantes.NUMERO_ALIENS_COLUNA-1){
         for(j <- 0 to Constantes.NUMERO_ALIENS_LINHA-1){
           if(((this.disparoNave.getX > aliensV(i)(j).getX - 10) && (this.disparoNave.getX < aliensV(i)(j).getX + 10)) && (this.disparoNave.getY == aliensV(i)(j).getY) && (aliensV(i)(j).getAtivo))
                  {  this.disparoNave.desativa()
                    this.aliensV(i)(j).desativa()
+                   aliensMortos +=1
                    pontuacao += 10
                  }
         }
@@ -154,15 +155,16 @@ class Controller(){
                 vida -= 1
             }
 
-  }
+          }
       if(aliensV(i)(j).disparo.getY > 500){
         aliensV(i)(j).disparo.desativa()
         aliensV(i)(j).disparo.set(aliensV(i)(j).getX,aliensV(i)(j).getY, false)
-
-
       }
-
-
   }
-
+  def ganhou(): Boolean = {
+    if(aliensMortos == Constantes.NUMERO_ALIENS_LINHA * Constantes.NUMERO_ALIENS_COLUNA)
+      return true
+    else
+      return false
+  }
 }

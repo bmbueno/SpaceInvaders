@@ -7,15 +7,17 @@ object SpaceInvaders {
 
     var interface: UI = new UI()
 
-    interface.iniciar()
+    interface.inicia()
+    interface.iniciarJogo()
 
     while(true) {
-    Thread.sleep(100)
-    interface.printNave()
-    interface.printDisparo()
-    interface.printAliens()
-    interface.printDisparoAliens()
-    interface.printInfo()
+    Thread.sleep(50)
+     interface.printNave()
+     interface.printDisparo()
+     interface.printAliens()
+     interface.printDisparoAliens()
+     interface.printInfo()
+     interface.verificaFimJogo()
 
 }
 
