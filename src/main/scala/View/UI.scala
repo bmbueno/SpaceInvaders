@@ -31,16 +31,18 @@ class UI() extends JFrame with KeyListener {
   private val labelOver: JLabel = new JLabel("VOCÊ PERDEU!!!!!")
   private var isMenu: Boolean = true
 
+//====================================================================================================
+// Inicio Funções de exibição de telas
   def inicia(): Unit = {
-    this.controle.setDificuldade("Dificil")
-    this.tela.setTitle(titulo);
-    this.tela.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    this.tela.setSize(600, 600);
-    this.tela.setLocationRelativeTo(null);
-    this.tela.addKeyListener(this)
-    this.tela.setResizable(false)
-    this.tela.setVisible(true)
-  }
+      this.controle.setDificuldade("Dificil")
+      this.tela.setTitle(titulo);
+      this.tela.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+      this.tela.setSize(600, 600);
+      this.tela.setLocationRelativeTo(null);
+      this.tela.addKeyListener(this)
+      this.tela.setResizable(false)
+      this.tela.setVisible(true)
+    }
   def iniciarMenu(): Unit = {
     this.panelMenu.setBackground(Color.black)
     this.panelMenu.add(this.labelTitulo)
@@ -101,6 +103,9 @@ class UI() extends JFrame with KeyListener {
     this.labelOver.setBounds(240,200,200,10)
     this.labelOver.setForeground(Color.white)
   }
+  // FIM Funções de exibição de telas
+  //==================================================================================================
+  // INICIO FUNÇÕES PARA SCANN DE TECLADO
   def keyPressed(k:KeyEvent): Unit = {
       this.tecla = k.getKeyCode()
       controle.setTecla(this.tecla)
@@ -111,10 +116,15 @@ class UI() extends JFrame with KeyListener {
 
   def keyTyped(k:KeyEvent): Unit = {
   }
+  // FIM FUNÇÕES PARA SCANN DE TECLADO
+  //[==================================================================================================
 
+  //*********   Função para setar posição da nave e exibição
   def printNave(): Unit = {
     this.labelNave.setBounds(controle.getNave.getX,controle.getNave.getY,100,100)
   }
+
+  //*********   Função para setar posição e exibição da matriz de aliens
   def printAliens(): Unit = {
     for(i <- 0 to controle.getNumAliensColuna-1){
       for(j <- 0 to controle.getNumAliens-1){
@@ -125,11 +135,10 @@ class UI() extends JFrame with KeyListener {
            }
       }
     }
-    controle.Alien()
+    controle.Alien()             ///  => chamada de função de movimentação dos aliens
   }
 
-
-
+  //*********   Função para setar posição e exibição do disparo da nave
   def printDisparo(): Unit = {
       if(controle.getDisparo.getAtivo){
         this.labelDisparo.setBounds(controle.getDisparo.getX,controle.getDisparo.getY,100,100)
@@ -137,6 +146,9 @@ class UI() extends JFrame with KeyListener {
     } else
         this.labelDisparo.setBounds(controle.getDisparo.getX,controle.getDisparo.getY,0,0)
   }
+
+
+//*********   Função para setar posição e exibição da matriz de disparos dos aliens
     def printDisparoAliens(): Unit = {
       for(i <- 0 to controle.getNumAliensColuna-1){
         for(j <- 0 to controle.getNumAliens-1){
@@ -146,8 +158,11 @@ class UI() extends JFrame with KeyListener {
                this.labelsDisparoAliens(i)(j).setBounds(controle.getAliens(i,j).disparo.getX,controle.getAliens(i,j).disparo.getY,0,0)
         }
       }
-      controle.disparoAliens()
+      controle.disparoAliens()        ///  => chamada de função de movimentação dos disparos dos aliens
     }
+
+
+//*********   Função para setar posição e exibição das informações do jogo (Score e numero de vidas restantes)
     def printInfo(): Unit = {
       this.labelVida.setBounds(100,0,100,50)
       this.labelVida.setText("Vidas:  " + controle.getVida.toString)
@@ -157,6 +172,7 @@ class UI() extends JFrame with KeyListener {
       this.labelPontuacao.setText("Score:  " + controle.getPontuação.toString)
       this.labelPontuacao.setForeground(Color.yellow)
     }
+
   def verificaFimJogo(): Unit = {
       if(controle.ganhou())
         fimDeJogoWin()

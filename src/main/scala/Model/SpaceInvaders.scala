@@ -20,9 +20,5 @@ object SpaceInvaders {
      interface.verificaFimJogo()
 
 }
-
-
-
-
 }
 }

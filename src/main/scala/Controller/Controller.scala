@@ -12,9 +12,6 @@ class Controller(){
   private var alien = new Alien(10,100)
   private var nave = new Nave(100,500)
   private var disparoNave: Disparo = new Disparo(100,200,false)
-  private var aliens: Array[Alien] = new Array[Alien](Constantes.NUMERO_ALIENS_LINHA)
-  private var aliens1: Array[Alien] = new Array[Alien](Constantes.NUMERO_ALIENS_LINHA)
-  private var aliens2: Array[Alien] = new Array[Alien](Constantes.NUMERO_ALIENS_LINHA)
   private var aliensV =  ofDim[Alien](3,Constantes.NUMERO_ALIENS_LINHA)
   private var pontuacao: Int = 0
   private var iRandomico : Random = new Random
@@ -34,17 +31,8 @@ class Controller(){
   def getImagemDisparo = Constantes.IMG_DISPARO
   def getVida = vida
 
+  //********* INICIALIZA A MATRIZ DE ALIENS COM AS DEVIDAS POSIÇÕES NA TELA
   def inicializa(): Unit = {
-    for(i <- 0 to Constantes.NUMERO_ALIENS_LINHA-1){
-      aliens(i) = new Alien(5+((i)*50),30)
-    }
-    for(i <- 0 to Constantes.NUMERO_ALIENS_LINHA-1){
-      aliens1(i) = new Alien(5+((i)*50),70)
-
-    }
-    for(i <- 0 to Constantes.NUMERO_ALIENS_LINHA-1){
-      aliens2(i) = new Alien(5+((i)*50),110)
-    }
     for(i <- 0 to Constantes.NUMERO_ALIENS_COLUNA-1){
       for(j <- 0 to Constantes.NUMERO_ALIENS_LINHA-1){
         aliensV(i)(j) = new Alien(5+((j)*50),(30 + (i*40)))
@@ -52,7 +40,7 @@ class Controller(){
     }
     vida = 3
   }
-
+  //***********************************************************************************************
   def setDificuldade(dificuldade: String): Unit = {
     dificuldade match {
       case "Facil" => {
@@ -71,7 +59,7 @@ class Controller(){
   def setTecla(tecla: Int): Unit = {
     this.tecla = tecla
   }
-
+//************ PEGA A TECLA DADA PELA INTERFACE PARA MOVIMENTAR A NAVE
   def Nave(): Unit = {
     this.tecla match {
         case 32 => {
@@ -89,11 +77,12 @@ class Controller(){
         case _ => // default
     }
   }
-
+//***********************************************************************************
+// CONTROLA A MOVIMENTAÇÃO DOS ALIENS
   def Alien(): Unit = { // vai ter de receber a lista de aliens
       if (this.velocidade == velocidadeDefinida ){
-        for(i <- 0 to Constantes.NUMERO_ALIENS_COLUNA-1){
-          for(j <- 0 to Constantes.NUMERO_ALIENS_LINHA-1){
+        for(i <- 0 to Constantes.NUMERO_ALIENS_COLUNA-1){           // <= VARIA CONFORME VELOCIDADE DEFINIDA, INVERTENDO O MOVIMENTO
+          for(j <- 0 to Constantes.NUMERO_ALIENS_LINHA-1){          //       DO ALIEN NA METADE DA CONTAGEM DA VELOCIDADE
             if((i % 2) != 0){
               this.aliensV(i)(j).moveDireita()
             }
@@ -117,7 +106,8 @@ class Controller(){
         this.velocidade = velocidadeDefinida + 1
       this.velocidade = this.velocidade - 1
   }
-
+//****************************************************************************************
+// VERIFICA SE O DISPARO DA NAVE ACERTOU ALGUM ALIEN DA MATRIZ OU PASSOU DO LIMITE SUPERIOR DA TELA
   def disparoNav(): Unit = {
     if(this.disparoNave.getAtivo){
       this.disparoNave.moveFrente()
@@ -137,16 +127,19 @@ class Controller(){
       }
 
 }
-
+//*****************************************************************************************8
   def getAliens(i : Int,j : Int): Alien = {
     return aliensV(i)(j)
   }
-
+//***************************************************************************************
+// CONTROLA  A MOVIMENTAÇÃO DOS DISPAROS DE TODOS OS ALIENS, CRIA DISPAROS DE ALIENS RANDOMICAMENTE
   def disparoAliens(): Unit = {
-      val i = iRandomico.nextInt(2000) % Constantes.NUMERO_ALIENS_COLUNA
-      val j = jRandomico.nextInt(2000) % Constantes.NUMERO_ALIENS_LINHA
+      val i = iRandomico.nextInt(200) % Constantes.NUMERO_ALIENS_COLUNA
+      val j = jRandomico.nextInt(200) % Constantes.NUMERO_ALIENS_LINHA
+
       if((this.velocidade == velocidadeDefinida / 2 ) || (this.velocidade == velocidadeDefinida / 4) || (this.velocidade == velocidadeDefinida))
         aliensV(i)(j).dispara()
+
         for(i <- 0 to Constantes.NUMERO_ALIENS_COLUNA-1){
           for(j <- 0 to Constantes.NUMERO_ALIENS_LINHA-1){
             if(aliensV(i)(j).getAtivo && aliensV(i)(j).disparo.getAtivo )
