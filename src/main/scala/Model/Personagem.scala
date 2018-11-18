@@ -1,49 +1,28 @@
 package Model
-import View.{Interface}
-import javax.swing.JLabel;
 
-class Personagem(simboloPersonagem: String, coordX: Int, coordY: Int) {
-  private var simbolo: String = simboloPersonagem;
-  private var coordenadaX: Int = coordX;
-  private var coordenadaY: Int = coordY;
-  private var label: JLabel = new JLabel();
-  private val tamanho: Int = 10;
+class Personagem(coordX: Int, coordY: Int, ativo1: Boolean = true) {
+  
+  protected var x: Int = coordX
+  protected var y: Int = coordY
+  protected var velocidade: Int = 1
+  var ativo: Boolean = ativo1
 
-  def iniciaLabel():Unit = {
-    this.label.setText(this.simbolo);
-    this.label.setBounds(this.coordenadaX, this.coordenadaY, this.tamanho, this.tamanho);
+  def set(x: Int, y: Int,ativo: Boolean){
+    this.x = x
+    this.y = y
+    this.ativo = ativo
   }
-
-  def printPersonagem(interface : Interface): Unit = {
-    this.iniciaLabel();
-    interface.add(this.label);
+  def desativa(): Unit = {
+    this.ativo = false
   }
+  def getX = x
+  def getY = y
+  def getAtivo = ativo
 
-  def getCoordenadaX():Int = {
-    return this.coordenadaX;
+  def moveDireita(): Unit = {
+    this.x = this.x + 10
   }
-
-  def getCoordenadaY():Int = {
-    return this.coordenadaY;
-  }
-
-  def getLabel():JLabel = {
-    return this.label;
-  }
-
-  def setCoordenadaX(coordX:Int): Unit ={
-    this.coordenadaX = coordX;
-  }
-
-  def setCoordenadaY(coordY:Int): Unit ={
-    this.coordenadaY = coordY;
-  }
-
-  def testeColisao(personagem:Personagem): Boolean = {
-    var colisao: Boolean = false;
-    if(this.coordenadaX == personagem.getCoordenadaX() && this.coordenadaY == personagem.getCoordenadaY()){
-      colisao = true;
-    }
-    return colisao;
+  def moveEsquerda(): Unit = {
+    this.x = this.x - 10
   }
 }

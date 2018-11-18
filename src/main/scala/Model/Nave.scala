@@ -1,28 +1,12 @@
 package Model
 
-class Nave(simboloPersonagem: String, coordX: Int, coordY: Int)
-  extends Personagem(simboloPersonagem, coordX, coordY){
+import javax.swing.{ImageIcon}
 
-  def moveParaFrente(): Unit ={
-    this.setCoordenadaY(this.getCoordenadaY() - 10);
+class Nave(coordX: Int, coordY: Int) extends Personagem(coordX,coordY){
+
+  def getImgNave = Constantes.IMG_NAVE
+  def moveTras(): Unit = {
+    this.y = this.y - 10
   }
-
-  def moveParaTras(): Unit ={
-    this.setCoordenadaY(this.getCoordenadaY() + 10);
-  }
-
-  def moveParaEsquerda(): Unit ={
-    this.setCoordenadaX(this.getCoordenadaX() - 10);
-  }
-
-  def moveParaDireita(): Unit ={
-    this.setCoordenadaX(this.getCoordenadaX() + 10);
-  }
-  def moveu(): Unit = {
-    //if(KeyEvent.VK_ENTER){
-    //  println("foi")
-    }
-
-
 
 }
