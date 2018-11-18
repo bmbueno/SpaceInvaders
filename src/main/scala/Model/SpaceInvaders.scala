@@ -11,14 +11,17 @@ object SpaceInvaders {
     interface.iniciarJogo()
 
     while(true) {
-    Thread.sleep(50)
-     interface.printNave()
-     interface.printDisparo()
-     interface.printAliens()
-     interface.printDisparoAliens()
-     interface.printInfo()
-     interface.verificaFimJogo()
+      Thread.sleep(50)
+      interface.printNave()
+      interface.printDisparo()
 
-}
-}
+      interface.printAliens()
+      interface.printDisparoAliens()
+      interface.printInfo()
+      interface.verificaFimJogo()
+
+
+
+    }
+  }
 }

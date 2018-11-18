@@ -4,7 +4,7 @@ import scala.Array._
 import Array.ofDim
 import scala.util.Random
 
-class Controller(){
+class Controller() extends Thread{
 
   private var tecla: Int = 0
   private var velocidadeDefinida: Int = 0
@@ -59,12 +59,13 @@ class Controller(){
   def setTecla(tecla: Int): Unit = {
     this.tecla = tecla
   }
-//************ PEGA A TECLA DADA PELA INTERFACE PARA MOVIMENTAR A NAVE
+
+  //************ PEGA A TECLA DADA PELA INTERFACE PARA MOVIMENTAR A NAVE
   def Nave(): Unit = {
     this.tecla match {
         case 32 => {
             if(!disparoNave.getAtivo)
-            disparoNave.set(nave.getX,nave.getY,true)
+              disparoNave.set(nave.getX,nave.getY,true)
         }
         case 37 => {
           if(this.nave.getX > 0)
@@ -77,9 +78,11 @@ class Controller(){
         case _ => // default
     }
   }
-//***********************************************************************************
-// CONTROLA A MOVIMENTAÇÃO DOS ALIENS
-  def Alien(): Unit = { // vai ter de receber a lista de aliens
+
+  //***********************************************************************************
+  // CONTROLA A MOVIMENTAÇÃO DOS ALIENS
+  override def run(): Unit = {
+    try {
       if (this.velocidade == velocidadeDefinida ){
         for(i <- 0 to Constantes.NUMERO_ALIENS_COLUNA-1){           // <= VARIA CONFORME VELOCIDADE DEFINIDA, INVERTENDO O MOVIMENTO
           for(j <- 0 to Constantes.NUMERO_ALIENS_LINHA-1){          //       DO ALIEN NA METADE DA CONTAGEM DA VELOCIDADE
@@ -102,9 +105,12 @@ class Controller(){
           }
         }
       }
-       if (this.velocidade < 0)
+      if (this.velocidade < 0)
         this.velocidade = velocidadeDefinida + 1
       this.velocidade = this.velocidade - 1
+    }catch{
+      case e:Exception => e.printStackTrace();
+    }
   }
 //****************************************************************************************
 // VERIFICA SE O DISPARO DA NAVE ACERTOU ALGUM ALIEN DA MATRIZ OU PASSOU DO LIMITE SUPERIOR DA TELA

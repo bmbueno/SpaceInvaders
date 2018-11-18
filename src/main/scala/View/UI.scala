@@ -8,7 +8,7 @@ import Controller._
 import java.time._
 import Array.ofDim
 
-class UI() extends JFrame with KeyListener {
+class UI() extends JFrame with KeyListener   {
   private val titulo: String = "Space Invaders"
   private var tecla: Int = 0
   private var controle: Controller = new Controller()
@@ -135,7 +135,7 @@ class UI() extends JFrame with KeyListener {
            }
       }
     }
-    controle.Alien()             ///  => chamada de função de movimentação dos aliens
+    controle.run()             ///  => chamada de função de movimentação dos aliens
   }
 
   //*********   Função para setar posição e exibição do disparo da nave
